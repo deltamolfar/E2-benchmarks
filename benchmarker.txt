@@ -1,0 +1,86 @@
+@name benchmarker
+@persist [Func1Delays Func2Delays]:array Amount ResultSave:table [Func1 Func2]:function Epsilon
+@persist GlobalVar:array
+@strict
+
+if( first() ){
+    Func1 = function(){
+        #Your function
+    }
+    
+    Func2 = function(){
+        #Your alternative function
+    }
+    
+    ResultSave = table(
+        "FUNC_1_NAME" = "A", #Func 1 description
+        "FUNC_2_NAME" = "B"  #Func 2 description
+    )
+    
+    ResultSave["NAME", string] = ResultSave["FUNC_1_NAME", string]+" vs "+ResultSave["FUNC_2_NAME", string]
+    
+    GlobalVar = array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10) #Sometimes useful to have common global variable for functions, to remove initializing it (which can reduce the difference radio)
+    
+    Func1Delays = array()
+    Func2Delays = array()
+    Amount = 1000000
+    Epsilon = 1.05
+    
+    interval(1)
+    timer("print", 1000)
+}
+
+function number func1(){
+    const StartTime = systime()
+    
+    Func1()
+    
+    return systime()-StartTime
+}
+
+function number func2(){
+    const StartTime = systime()
+    
+    Func2()
+    
+    return systime()-StartTime
+}
+
+function printout(){
+    hint("Benchmarking finished.", 7)
+
+    const Func1Avg = Func1Delays:average()
+    const Func2Avg = Func2Delays:average()
+    const Difference = Func1Avg>Func2Avg ? floor(Func1Avg/Func2Avg, 4) : floor(Func2Avg/Func1Avg, 4)
+    
+    print("Name: "+ResultSave["NAME", string]+":
+    "+ResultSave["FUNC_1_NAME", string]+"(func1): "+Func1Avg+"
+    "+ResultSave["FUNC_2_NAME", string]+"(func2): "+Func2Avg+"
+    Faster: "+(Func1Avg<Func2Avg ? ResultSave["FUNC_1_NAME", string] : ResultSave["FUNC_2_NAME", string])+"
+    Difference: "+Difference+"x faster "+(Difference<=Epsilon ? "(To be considered equal, and difference is to be considered a fluctuation)" : "")
+    )
+    
+    selfDestruct()
+}
+
+if( clk() ){
+    while( perf(99) ){
+        Func1Delays:pushNumber(func1())
+        Func2Delays:pushNumber(func2())
+        
+        if( Func1Delays:count()>=Amount ){
+            stoptimer("print")
+            timer("printout", 1005)
+            exit()
+        }
+    }
+    
+    interval(10)
+}
+elseif( clk("print") ){
+    timer("print", 1000)
+    print(_HUD_PRINTCONSOLE, "\nBenchmarking: "+floor((Func1Delays:count()/Amount)*100,2)+"%...")
+}
+elseif( clk("printout") ){
+    printout()
+}
