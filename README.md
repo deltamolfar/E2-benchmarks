@@ -44,7 +44,7 @@ Func2 = function(){
 ```
 -------------------------------------------------------------------------------
 
-Name: for(array) vs foreach(array):
+### Name: for(array) vs foreach(array):
     for(Array)(func1): 9.4104822004447e-06
     foreach(Array)(func2): 1.0234021101252e-05
     Faster: for(Array)
@@ -68,7 +68,7 @@ Func2 = function(){
 ```
 -------------------------------------------------------------------------------
 
-Name: Caching table value vs not caching table value (2 usages):
+### Name: Caching table value vs not caching table value (2 usages):
     Caching(func1): 3.1641313986402e-06
     Not caching(func2): 3.0177291972941e-06
     Faster: Not caching
@@ -91,7 +91,7 @@ Func2 = function(){
 ```
 -------------------------------------------------------------------------------
 
-Name: Caching table value vs not caching table value (4 usages):
+### Name: Caching table value vs not caching table value (4 usages):
     Caching(func1): 3.3019128994383e-06
     Not caching(func2): 3.9023352007534e-06
     Faster: Caching
@@ -118,7 +118,7 @@ Func2 = function(){
 ```
 -------------------------------------------------------------------------------
 
-Name: Multiplication vs Division:
+### Name: Multiplication vs Division:
     Multiplication(func1): 1.6986207035443e-06
     Division(func2): 2.3158794003539e-06
     Faster: Multiplication
@@ -136,7 +136,7 @@ Func2 = function(){
 ```
 -------------------------------------------------------------------------------
 
-Name: Logical AND vs Bitwise AND:
+### Name: Logical AND vs Bitwise AND:
     Logical AND(func1): 2.7615460006491e-06
     Bitwise AND(func2): 1.4855218013945e-06
     Faster: Bitwise AND
@@ -159,7 +159,7 @@ Func2 = function(){
 ```
 -------------------------------------------------------------------------------
 
-Name: Logical OR vs Bitwise OR:
+### Name: Logical OR vs Bitwise OR:
     Logical OR(func1): 3.2567436998688e-06
     Bitwise OR(func2): 2.3873028004273e-06
     Faster: Bitwise OR
@@ -181,7 +181,7 @@ Func2 = function(){
 ```
 -------------------------------------------------------------------------------
 
-Name: if(A) vs if(A==1):
+### Name: if(A) vs if(A==1):
     if(A)(func1): 3.1880695985856e-06
     if(A==1)(func2): 1.9789566011314e-06
     Faster: if(A==1)
@@ -204,7 +204,7 @@ Func2 = function(){
 ```
 -------------------------------------------------------------------------------
 
-Name: v:setX() vs use math to set pitch:
+### Name: v:setX() vs use math to set pitch:
     v:setX()(func1): 4.3080405023502e-06
     use math to set pitch(func2): 6.5721699985588e-06
     Faster: v:setX()
@@ -222,7 +222,7 @@ Func2 = function(){
 ```
 -------------------------------------------------------------------------------
 
-Name: for(I=1, 10) vs for(_=1, 10):
+### Name: for(I=1, 10) vs for(_=1, 10):
     for(I=1, 10)(func1): 5.7966269985372e-06
     for(_=1, 10)(func2): 4.1644744037403e-06
     Faster: for(_=1, 10)
@@ -242,7 +242,7 @@ Func2 = function(){
 ```
 -------------------------------------------------------------------------------
 
-Name: foreach(I:number, V:number = Array) vs foreach(_:number, V:number = Array):
+### Name: foreach(I:number, V:number = Array) vs foreach(_:number, V:number = Array):
     foreach(I:number, V:number = Array)(func1): 7.6134745981981e-06
     foreach(_:number, V:number = Array)(func2): 7.3428557003244e-06
     Faster: foreach(_:number, V:number = Array)
@@ -262,7 +262,7 @@ Func2 = function(){
 ```
 -------------------------------------------------------------------------------
 
-Name: a:average() vs manual average number:
+### Name: a:average() vs manual average number:
     a:average()(func1): 1.6577344026664e-06
     manual average number(func2): 1.1374525199102e-05
     Faster: a:average()
@@ -284,7 +284,7 @@ Func2 = function(){
 ```
 -------------------------------------------------------------------------------
 
-Name: Checking for value with lookup table vs Checking for value with a:indexOf (best case):
+### Name: Checking for value with lookup table vs Checking for value with a:indexOf (best case):
     Checking for value with lookup table(func1): 9.4220373995668e-06
     Checking for value with a:indexOf (best case)(func2): 4.2026332019668e-06
     Faster: Checking for value with a:indexOf (best case)
@@ -305,7 +305,7 @@ GlobalVar = array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
 ```
 -------------------------------------------------------------------------------
 
-Name: Checking for value with lookup table vs Checking for value with a:indexOf (worst case):
+### Name: Checking for value with lookup table vs Checking for value with a:indexOf (worst case):
     Checking for value with lookup table(func1): 9.5196129990763e-06
     Checking for value with a:indexOf (worst case)(func2): 4.0209813018155e-06
     Faster: Checking for value with a:indexOf (worst case)
