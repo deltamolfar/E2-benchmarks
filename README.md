@@ -28,7 +28,9 @@ Benchmarks of performance of different E2's functions/logic/operators/methods/et
 - [Checking for value with lookup table vs Checking for value with a:indexOf (worst case)](https://github.com/deltamolfar/E2-benchmarks/tree/main#name-checking-for-value-with-lookup-table-vs-checking-for-value-with-aindexof-worst-case)
 - [elseif chain (worst case (5)) vs switch statement (worse case (5))](https://github.com/deltamolfar/E2-benchmarks/tree/main#name-elseif-chain-worst-case-5-vs-switch-statement-worse-case-5)
 - [elseif chain (best case (5)) vs switch statement (best case (5))](https://github.com/deltamolfar/E2-benchmarks/tree/main#name-elseif-chain-best-case-5-vs-switch-statement-best-case-5)
-- [x^(1/2) vs sqrt(x)]()
+- [x^(1/2) vs sqrt(x)](https://github.com/deltamolfar/E2-benchmarks/tree/main#name-x12-vs-sqrtx)
+- [v:distance2(v) vs v:distance(v)](https://github.com/deltamolfar/E2-benchmarks/tree/main#name-vdistance2v-vs-vdistancev)
+- [sqrt(v:distance2(v)) vs v:distance(v)](https://github.com/deltamolfar/E2-benchmarks/tree/main#name-sqrtvdistance2v-vs-vdistancev)
 
 ### Name: Global vars vs Local vars:
     Global (func1): 1.1187495012491e-06
