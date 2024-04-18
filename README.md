@@ -459,8 +459,33 @@ Func2 = function(){
 ```
 -------------------------------------------------------------------------------
 
+### Name: v:distance2(v) vs v:distance(v):
+    v:distance2(v)(func1): 2.4197570947144e-06
+    v:distance(v)(func2): 3.2264778981189e-06
+    Faster: v:distance2(v)
+    Difference: 1.3333x faster 
+```
+Func1 = function(){
+    const A = GlobalVar:distance2(GlobalVar2)
+}
+Func2 = function(){
+    const A = GlobalVar:distance(GlobalVar2)
+}
+```
 -------------------------------------------------------------------------------
-
+### Name: sqrt(v:distance2(v)) vs v:distance(v):
+    sqrt(v:distance2(v))(func1): 3.4600202005604e-06
+    v:distance(v)(func2): 3.4035833941307e-06
+    Faster: v:distance(v)
+    Difference: 1.0165x-1.05x faster (To be considered equal, and difference is to be considered a fluctuation)
+```
+Func1 = function(){
+    const A = sqrt(GlobalVar:distance2(GlobalVar2))
+}
+Func2 = function(){
+    const A = GlobalVar:distance(GlobalVar2)
+}
+```
 -------------------------------------------------------------------------------
 
 -------------------------------------------------------------------------------
