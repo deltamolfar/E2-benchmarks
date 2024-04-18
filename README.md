@@ -23,6 +23,7 @@ Each test (except some), are run 2-3 times. Each print out is from one of 1.000.
 - [Checking for value with lookup table vs Checking for value with a:indexOf (worst case)](https://github.com/deltamolfar/E2-benchmarks/tree/main#name-checking-for-value-with-lookup-table-vs-checking-for-value-with-aindexof-worst-case)
 - [elseif chain (worst case (5)) vs switch statement (worse case (5))](https://github.com/deltamolfar/E2-benchmarks/tree/main#name-elseif-chain-worst-case-5-vs-switch-statement-worse-case-5)
 - [elseif chain (best case (5)) vs switch statement (best case (5))](https://github.com/deltamolfar/E2-benchmarks/tree/main#name-elseif-chain-best-case-5-vs-switch-statement-best-case-5)
+- [x^(1/2) vs sqrt(x)]()
 
 ### Name: Global vars vs Local vars:
     Global (func1): 1.1187495012491e-06
@@ -436,6 +437,20 @@ Func2 = function(){
 ```
 -------------------------------------------------------------------------------
 
+### Name: x^(1/2) vs sqrt(x):
+    x^(1/2)(func1): 4.3928160997602e-06
+    sqrt(x)(func2): 1.8497758958256e-06
+    Faster: sqrt(x)
+    Difference: 2.3747x faster 
+
+```
+Func1 = function(){
+    const A = 128^(1/2)
+}
+Func2 = function(){
+    const A = sqrt(128)
+}
+```
 -------------------------------------------------------------------------------
 
 -------------------------------------------------------------------------------
