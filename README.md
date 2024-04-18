@@ -10,7 +10,7 @@ Name: Global vars vs Local vars:
     Difference: 3.1723x faster
 
 -- From ton of tests, sometimes local is even faster, but most of the time global is ~3 times faster.
-
+``
 Func1 = function(){
     A = 0
 }
@@ -18,7 +18,7 @@ Func1 = function(){
 Func2 = function(){
     local A = 0
 }
-
+``
 -------------------------------------------------------------------------------
 
 Name: for(table) vs foreach(table):
