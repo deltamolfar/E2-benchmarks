@@ -3,8 +3,11 @@ Benchmarks of E2 functions/logic
 
 > [!IMPORTANT]
 > Tested on April 5, 2024 Workshop version
+> 
 > Each test (except very few), are run 2-3 times. Each print out is from one of 1.000.000 runs.
+> 
 > Obv the exact times of execution can differ VASTLY given different quota limits/hardware that it's run on/tick rate.
+> 
 > Don't take everything as 100% truth, as I may make mistakes, as well as anyone else, that's why I also added what functions I've used, for you to spot an error just in case.
 
 # Menu:
