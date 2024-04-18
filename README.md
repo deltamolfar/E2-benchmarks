@@ -12,6 +12,7 @@ Benchmarks of performance of different E2's functions/logic/operators/methods/et
 
 > [!TIP]
 > To find/jump between different benchmarks, use navigation button at the top left/right of this window.
+![image](https://github.com/deltamolfar/E2-benchmarks/assets/72973198/72b05da7-5c9e-4872-b6c3-252ba05c98fa)
 
 ### Global vars vs Local vars:
     Global (func1): 1.1187495012491e-06
