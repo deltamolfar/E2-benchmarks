@@ -10,29 +10,10 @@ Benchmarks of performance of different E2's functions/logic/operators/methods/et
 > 
 > Don't take everything as 100% truth, as I may make mistakes, as well as anyone else, that's why I also added what functions I've used, for you to spot an error just in case.
 
-# Menu:
-- [Global vars vs Local vars](https://github.com/deltamolfar/E2-benchmarks/tree/main#name-global-vars-vs-local-vars)
-- [for(table) vs foreach(table)](https://github.com/deltamolfar/E2-benchmarks/tree/main#name-fortable-vs-foreachtable)
-- [for(array) vs foreach(array)](https://github.com/deltamolfar/E2-benchmarks/tree/main#name-forarray-vs-foreacharray)
-- [Caching table value vs not caching table value (2 usages)](https://github.com/deltamolfar/E2-benchmarks/tree/main#name-caching-table-value-vs-not-caching-table-value-2-usages)
-- [Caching table value vs not caching table value (4 usages)](https://github.com/deltamolfar/E2-benchmarks/tree/main#name-caching-table-value-vs-not-caching-table-value-4-usages)
-- [Multiplication vs Division](https://github.com/deltamolfar/E2-benchmarks/tree/main#name-multiplication-vs-division)
-- [Logical AND vs Bitwise AND](https://github.com/deltamolfar/E2-benchmarks/tree/main#name-logical-and-vs-bitwise-and)
-- [Logical OR vs Bitwise OR](https://github.com/deltamolfar/E2-benchmarks/tree/main#name-logical-or-vs-bitwise-or)
-- [if(A) vs if(A==1)](https://github.com/deltamolfar/E2-benchmarks/tree/main#name-ifa-vs-ifa1)
-- [v:setX() vs use math to set vector's x](https://github.com/deltamolfar/E2-benchmarks/tree/main#name-vsetx-vs-use-math-to-set-pitch)
-- [for(I=1, 10) vs for(_=1, 10)](https://github.com/deltamolfar/E2-benchmarks/tree/main#name-fori1-10-vs-for_1-10)
-- [foreach(I:number, V:number = Array) vs foreach(_:number, V:number = Array)](https://github.com/deltamolfar/E2-benchmarks/tree/main#name-foreachinumber-vnumber--array-vs-foreach_number-vnumber--array)
-- [a:average() vs manual average number](https://github.com/deltamolfar/E2-benchmarks/tree/main#name-aaverage-vs-manual-average-number)
-- [Checking for value with lookup table vs Checking for value with a:indexOf (best case)](https://github.com/deltamolfar/E2-benchmarks/tree/main#name-checking-for-value-with-lookup-table-vs-checking-for-value-with-aindexof-best-case)
-- [Checking for value with lookup table vs Checking for value with a:indexOf (worst case)](https://github.com/deltamolfar/E2-benchmarks/tree/main#name-checking-for-value-with-lookup-table-vs-checking-for-value-with-aindexof-worst-case)
-- [elseif chain (worst case (5)) vs switch statement (worse case (5))](https://github.com/deltamolfar/E2-benchmarks/tree/main#name-elseif-chain-worst-case-5-vs-switch-statement-worse-case-5)
-- [elseif chain (best case (5)) vs switch statement (best case (5))](https://github.com/deltamolfar/E2-benchmarks/tree/main#name-elseif-chain-best-case-5-vs-switch-statement-best-case-5)
-- [x^(1/2) vs sqrt(x)](https://github.com/deltamolfar/E2-benchmarks/tree/main#name-x12-vs-sqrtx)
-- [v:distance2(v) vs v:distance(v)](https://github.com/deltamolfar/E2-benchmarks/tree/main#name-vdistance2v-vs-vdistancev)
-- [sqrt(v:distance2(v)) vs v:distance(v)](https://github.com/deltamolfar/E2-benchmarks/tree/main#name-sqrtvdistance2v-vs-vdistancev)
+> [!TIP]
+> To find/jump between different benchmarks, use navigation button at the top left/right of this window.
 
-### Name: Global vars vs Local vars:
+### Global vars vs Local vars:
     Global (func1): 1.1187495012491e-06
     Local (func2): 3.5490606999374e-06
     Faster: Global
@@ -47,10 +28,9 @@ Func2 = function(){
     local A = 0
 }
 ```
-- [Up to menu ^](https://github.com/deltamolfar/E2-benchmarks/tree/main#menu)
 -------------------------------------------------------------------------------
 
-### Name: for(table) vs foreach(table):
+### for(table) vs foreach(table):
     for(Table)(func1): 8.7233780999195e-06
     foreach(Table)(func2): 9.8770803049119e-06
     Faster: for(Table)
@@ -74,7 +54,7 @@ Func2 = function(){
 ```
 -------------------------------------------------------------------------------
 
-### Name: for(array) vs foreach(array):
+### for(array) vs foreach(array):
     for(Array)(func1): 9.4104822004447e-06
     foreach(Array)(func2): 1.0234021101252e-05
     Faster: for(Array)
@@ -98,7 +78,7 @@ Func2 = function(){
 ```
 -------------------------------------------------------------------------------
 
-### Name: Caching table value vs not caching table value (2 usages):
+### Caching table value vs not caching table value (2 usages):
     Caching(func1): 3.1641313986402e-06
     Not caching(func2): 3.0177291972941e-06
     Faster: Not caching
@@ -121,7 +101,7 @@ Func2 = function(){
 ```
 -------------------------------------------------------------------------------
 
-### Name: Caching table value vs not caching table value (4 usages):
+### Caching table value vs not caching table value (4 usages):
     Caching(func1): 3.3019128994383e-06
     Not caching(func2): 3.9023352007534e-06
     Faster: Caching
@@ -148,7 +128,7 @@ Func2 = function(){
 ```
 -------------------------------------------------------------------------------
 
-### Name: Multiplication vs Division:
+### Multiplication vs Division:
     Multiplication(func1): 1.6986207035443e-06
     Division(func2): 2.3158794003539e-06
     Faster: Multiplication
@@ -166,7 +146,7 @@ Func2 = function(){
 ```
 -------------------------------------------------------------------------------
 
-### Name: Logical AND vs Bitwise AND:
+### Logical AND vs Bitwise AND:
     Logical AND(func1): 2.7615460006491e-06
     Bitwise AND(func2): 1.4855218013945e-06
     Faster: Bitwise AND
@@ -189,7 +169,7 @@ Func2 = function(){
 ```
 -------------------------------------------------------------------------------
 
-### Name: Logical OR vs Bitwise OR:
+### Logical OR vs Bitwise OR:
     Logical OR(func1): 3.2567436998688e-06
     Bitwise OR(func2): 2.3873028004273e-06
     Faster: Bitwise OR
@@ -211,7 +191,7 @@ Func2 = function(){
 ```
 -------------------------------------------------------------------------------
 
-### Name: if(A) vs if(A==1):
+### if(A) vs if(A==1):
     if(A)(func1): 3.1880695985856e-06
     if(A==1)(func2): 1.9789566011314e-06
     Faster: if(A==1)
@@ -234,7 +214,7 @@ Func2 = function(){
 ```
 -------------------------------------------------------------------------------
 
-### Name: v:setX() vs use math to set vector's x:
+### v:setX() vs use math to set vector's x:
     v:setX()(func1): 4.3080405023502e-06
     use math to set pitch(func2): 6.5721699985588e-06
     Faster: v:setX()
@@ -252,7 +232,7 @@ Func2 = function(){
 ```
 -------------------------------------------------------------------------------
 
-### Name: for(I=1, 10) vs for(_=1, 10):
+### for(I=1, 10) vs for(_=1, 10):
     for(I=1, 10)(func1): 5.7966269985372e-06
     for(_=1, 10)(func2): 4.1644744037403e-06
     Faster: for(_=1, 10)
@@ -272,7 +252,7 @@ Func2 = function(){
 ```
 -------------------------------------------------------------------------------
 
-### Name: foreach(I:number, V:number = Array) vs foreach(_:number, V:number = Array):
+### foreach(I:number, V:number = Array) vs foreach(_:number, V:number = Array):
     foreach(I:number, V:number = Array)(func1): 7.6134745981981e-06
     foreach(_:number, V:number = Array)(func2): 7.3428557003244e-06
     Faster: foreach(_:number, V:number = Array)
@@ -292,7 +272,7 @@ Func2 = function(){
 ```
 -------------------------------------------------------------------------------
 
-### Name: a:average() vs manual average number:
+### a:average() vs manual average number:
     a:average()(func1): 1.6577344026664e-06
     manual average number(func2): 1.1374525199102e-05
     Faster: a:average()
@@ -314,7 +294,7 @@ Func2 = function(){
 ```
 -------------------------------------------------------------------------------
 
-### Name: Checking for value with lookup table vs Checking for value with a:indexOf (best case):
+### Checking for value with lookup table vs Checking for value with a:indexOf (best case):
     Checking for value with lookup table(func1): 9.4220373995668e-06
     Checking for value with a:indexOf (best case)(func2): 4.2026332019668e-06
     Faster: Checking for value with a:indexOf (best case)
@@ -335,7 +315,7 @@ GlobalVar = array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
 ```
 -------------------------------------------------------------------------------
 
-### Name: Checking for value with lookup table vs Checking for value with a:indexOf (worst case):
+### Checking for value with lookup table vs Checking for value with a:indexOf (worst case):
     Checking for value with lookup table(func1): 9.5196129990763e-06
     Checking for value with a:indexOf (worst case)(func2): 4.0209813018155e-06
     Faster: Checking for value with a:indexOf (worst case)
@@ -356,7 +336,7 @@ GlobalVar = array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
 ```
 -------------------------------------------------------------------------------
 
-### Name: elseif chain (worst case (5)) vs switch statement (worse case (5)):
+### elseif chain (worst case (5)) vs switch statement (worse case (5)):
     elseif chain (worst case (5))(func1): 4.4832946988463e-06
     switch statement (worse case (5))(func2): 3.1121571030599e-06
     Faster: switch statement (worse case)
@@ -400,7 +380,7 @@ Func2 = function(){
 ```
 -------------------------------------------------------------------------------
 
-### Name: elseif chain (best case (5)) vs switch statement (best case (5)):
+### elseif chain (best case (5)) vs switch statement (best case (5)):
     elseif chain (best case (5))(func1): 3.8640061986043e-06
     switch statement (best case (5))(func2): 2.9425704010828e-06
     Faster: switch statement (best case (5))
@@ -445,7 +425,7 @@ Func2 = function(){
 ```
 -------------------------------------------------------------------------------
 
-### Name: x^(1/2) vs sqrt(x):
+### x^(1/2) vs sqrt(x):
     x^(1/2)(func1): 4.3928160997602e-06
     sqrt(x)(func2): 1.8497758958256e-06
     Faster: sqrt(x)
@@ -461,7 +441,7 @@ Func2 = function(){
 ```
 -------------------------------------------------------------------------------
 
-### Name: v:distance2(v) vs v:distance(v):
+### v:distance2(v) vs v:distance(v):
     v:distance2(v)(func1): 2.4197570947144e-06
     v:distance(v)(func2): 3.2264778981189e-06
     Faster: v:distance2(v)
@@ -475,7 +455,7 @@ Func2 = function(){
 }
 ```
 -------------------------------------------------------------------------------
-### Name: sqrt(v:distance2(v)) vs v:distance(v):
+### sqrt(v:distance2(v)) vs v:distance(v):
     sqrt(v:distance2(v))(func1): 3.4600202005604e-06
     v:distance(v)(func2): 3.4035833941307e-06
     Faster: v:distance(v)
@@ -488,9 +468,6 @@ Func2 = function(){
     const A = GlobalVar:distance(GlobalVar2)
 }
 ```
--------------------------------------------------------------------------------
-
--------------------------------------------------------------------------------
 
 -------------------------------------------------------------------------------
 
