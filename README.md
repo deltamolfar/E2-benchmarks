@@ -79,6 +79,37 @@ Func2 = function(){
 ```
 -------------------------------------------------------------------------------
 
+### Name: getting table value vs getting array value:
+    getting table value(func1): 3.7545093999245e-06
+    getting array value(func2): 1.0267367999393e-06
+    Faster: getting array value
+    Difference: 3.6567x faster 
+```
+Func1 = function(){
+    const A = GlobalVar[5, number]
+}
+Func2 = function(){
+    const A = GlobalVar2[5, number]
+}
+```
+-------------------------------------------------------------------------------
+
+### Name: appending table value vs appending array value:
+    appending table value(func1): 3.9170015998573e-06
+    appending array value(func2): 1.5040937999868e-06
+    Faster: appending array value
+    Difference: 2.6042x faster 
+```
+Func1 = function(){
+    GlobalVar:pushNumber(0)
+}
+Func2 = function(){
+    GlobalVar2:pushNumber(0)
+}
+```
+
+-------------------------------------------------------------------------------
+
 ### Caching table value vs not caching table value (2 usages):
     Caching(func1): 3.1641313986402e-06
     Not caching(func2): 3.0177291972941e-06
