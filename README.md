@@ -6,9 +6,9 @@ Tested on April 5, 2024 Workshop version
 Each test (except some), are run 2-3 times. Each print out is from one of 1.000.000 runs.
 
 # Menu:
-- [Global vars vs Local vars](https://github.com/deltamolfar/E2-benchmarks/edit/main/README.md#name-global-vars-vs-local-vars)
-- [for(table) vs foreach(table)](https://github.com/deltamolfar/E2-benchmarks/edit/main/README.md#name-fortable-vs-foreachtable)
-- [for(array) vs foreach(array)](https://github.com/deltamolfar/E2-benchmarks/edit/main/README.md#name-forarray-vs-foreacharray)
+- [Global vars vs Local vars](https://github.com/deltamolfar/E2-benchmarks/tree/main#name-global-vars-vs-local-vars)
+- [for(table) vs foreach(table)](https://github.com/deltamolfar/E2-benchmarks/tree/main#name-fortable-vs-foreachtable)
+- [for(array) vs foreach(array)](https://github.com/deltamolfar/E2-benchmarks/tree/main#name-forarray-vs-foreacharray)
 - [Caching table value vs not caching table value (2 usages)](https://github.com/deltamolfar/E2-benchmarks/tree/main#name-caching-table-value-vs-not-caching-table-value-2-usages)
 - [Caching table value vs not caching table value (4 usages)](https://github.com/deltamolfar/E2-benchmarks/tree/main#name-caching-table-value-vs-not-caching-table-value-4-usages)
 - [Multiplication vs Division](https://github.com/deltamolfar/E2-benchmarks/tree/main#name-multiplication-vs-division)
