@@ -40,6 +40,7 @@ Func2 = function(){
     local A = 0
 }
 ```
+[Up to menu ^](https://github.com/deltamolfar/E2-benchmarks/tree/main#menu)
 -------------------------------------------------------------------------------
 
 ### Name: for(table) vs foreach(table):
