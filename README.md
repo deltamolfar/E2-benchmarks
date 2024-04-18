@@ -324,3 +324,107 @@ Func2 = function(){
 }
 GlobalVar = array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
 ```
+-------------------------------------------------------------------------------
+
+Name: elseif chain (worst case (5)) vs switch statement (worse case (5)):
+    elseif chain (worst case (5))(func1): 4.4832946988463e-06
+    switch statement (worse case (5))(func2): 3.1121571030599e-06
+    Faster: switch statement (worse case)
+    Difference: 1.4405x faster 
+
+```
+Func1 = function(){
+    const A = 1
+    if( A==5 ){
+        const B = 1
+    } elseif( A==4 ){
+        const B = 1
+    } elseif( A==3 ){
+        const B = 1
+    } elseif( A==2 ){
+        const B = 1
+    } elseif( A==1 ){
+        const B = 1
+    }
+}
+Func2 = function(){
+    const A = 1
+    switch( A ){
+        case 5,
+            const B = 1
+        break
+        case 4,
+            const B = 1
+        break
+        case 3,
+            const B = 1
+        break
+        case 2,
+            const B = 1
+        break
+        case 1,
+            const B = 1
+        break
+    }
+}
+```
+-------------------------------------------------------------------------------
+
+Name: elseif chain (best case (5)) vs switch statement (best case (5)):
+    elseif chain (best case (5))(func1): 3.8640061986043e-06
+    switch statement (best case (5))(func2): 2.9425704010828e-06
+    Faster: switch statement (best case (5))
+    Difference: 1.0366x-1.3131x faster
+
+-- Didn't expect that. Heard a lot from dev team that switch statement is slower under the hood. :/
+```
+Func1 = function(){
+    const A = 5
+    if( A==5 ){
+        const B = 1
+    } elseif( A==4 ){
+        const B = 1
+    } elseif( A==3 ){
+        const B = 1
+    } elseif( A==2 ){
+        const B = 1
+    } elseif( A==1 ){
+        const B = 1
+    }
+}
+Func2 = function(){
+    const A = 5
+    switch( A ){
+        case 5,
+            const B = 1
+        break
+        case 4,
+            const B = 1
+        break
+        case 3,
+            const B = 1
+        break
+        case 2,
+            const B = 1
+        break
+        case 1,
+            const B = 1
+        break
+    }
+}
+```
+-------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------
+
+
