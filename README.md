@@ -370,7 +370,7 @@ Func2 = function(){
 ```
 -------------------------------------------------------------------------------
 
-Name: elseif chain (best case (5)) vs switch statement (best case (5)):
+### Name: elseif chain (best case (5)) vs switch statement (best case (5)):
     elseif chain (best case (5))(func1): 3.8640061986043e-06
     switch statement (best case (5))(func2): 2.9425704010828e-06
     Faster: switch statement (best case (5))
