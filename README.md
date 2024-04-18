@@ -456,11 +456,12 @@ Func2 = function(){
 }
 ```
 -------------------------------------------------------------------------------
-### sqrt(v:distance2(v)) vs v:distance(v):
-    sqrt(v:distance2(v))(func1): 3.4600202005604e-06
-    v:distance(v)(func2): 3.4035833941307e-06
+
+### Name: sqrt(v:distance2(v)) vs v:distance(v):
+    sqrt(v:distance2(v))(func1): 2.2255907999863e-06
+    v:distance(v)(func2): 1.1878733000705e-06
     Faster: v:distance(v)
-    Difference: 1.0165x-1.05x faster (To be considered equal, and difference is to be considered a fluctuation)
+    Difference: 1.8735x faster 
 ```
 Func1 = function(){
     const A = sqrt(GlobalVar:distance2(GlobalVar2))
