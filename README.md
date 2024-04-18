@@ -1,5 +1,7 @@
 # E2-benchmarks
-Benchmarks of E2 functions/logic\nTested on April 5, 2024 Workshop version
+Benchmarks of E2 functions/logic
+
+Tested on April 5, 2024 Workshop version
 
 Each test (except some), are run 2-3 times. Each print out is from one of 1.000.000 runs.
 
