@@ -5,6 +5,25 @@ Tested on April 5, 2024 Workshop version
 
 Each test (except some), are run 2-3 times. Each print out is from one of 1.000.000 runs.
 
+# Menu:
+- [Global vars vs Local vars](https://github.com/deltamolfar/E2-benchmarks/edit/main/README.md#name-global-vars-vs-local-vars)
+- [for(table) vs foreach(table)](https://github.com/deltamolfar/E2-benchmarks/edit/main/README.md#name-fortable-vs-foreachtable)
+- [for(array) vs foreach(array)](https://github.com/deltamolfar/E2-benchmarks/edit/main/README.md#name-forarray-vs-foreacharray)
+- [Caching table value vs not caching table value (2 usages)](https://github.com/deltamolfar/E2-benchmarks/tree/main#name-caching-table-value-vs-not-caching-table-value-2-usages)
+- [Caching table value vs not caching table value (4 usages)](https://github.com/deltamolfar/E2-benchmarks/tree/main#name-caching-table-value-vs-not-caching-table-value-4-usages)
+- [Multiplication vs Division](https://github.com/deltamolfar/E2-benchmarks/tree/main#name-multiplication-vs-division)
+- [Logical AND vs Bitwise AND](https://github.com/deltamolfar/E2-benchmarks/tree/main#name-logical-and-vs-bitwise-and)
+- [Logical OR vs Bitwise OR](https://github.com/deltamolfar/E2-benchmarks/tree/main#name-logical-or-vs-bitwise-or)
+- [if(A) vs if(A==1)](https://github.com/deltamolfar/E2-benchmarks/tree/main#name-ifa-vs-ifa1)
+- [v:setX() vs use math to set vector's x](https://github.com/deltamolfar/E2-benchmarks/tree/main#name-vsetx-vs-use-math-to-set-pitch)
+- [for(I=1, 10) vs for(_=1, 10)](https://github.com/deltamolfar/E2-benchmarks/tree/main#name-fori1-10-vs-for_1-10)
+- [foreach(I:number, V:number = Array) vs foreach(_:number, V:number = Array)](https://github.com/deltamolfar/E2-benchmarks/tree/main#name-foreachinumber-vnumber--array-vs-foreach_number-vnumber--array)
+- [a:average() vs manual average number](https://github.com/deltamolfar/E2-benchmarks/tree/main#name-aaverage-vs-manual-average-number)
+- [Checking for value with lookup table vs Checking for value with a:indexOf (best case)](https://github.com/deltamolfar/E2-benchmarks/tree/main#name-checking-for-value-with-lookup-table-vs-checking-for-value-with-aindexof-best-case)
+- [Checking for value with lookup table vs Checking for value with a:indexOf (worst case)](https://github.com/deltamolfar/E2-benchmarks/tree/main#name-checking-for-value-with-lookup-table-vs-checking-for-value-with-aindexof-worst-case)
+- [elseif chain (worst case (5)) vs switch statement (worse case (5))](https://github.com/deltamolfar/E2-benchmarks/tree/main#name-elseif-chain-worst-case-5-vs-switch-statement-worse-case-5)
+- [elseif chain (best case (5)) vs switch statement (best case (5))](https://github.com/deltamolfar/E2-benchmarks/tree/main#name-elseif-chain-best-case-5-vs-switch-statement-best-case-5)
+
 ### Name: Global vars vs Local vars:
     Global (func1): 1.1187495012491e-06
     Local (func2): 3.5490606999374e-06
@@ -206,7 +225,7 @@ Func2 = function(){
 ```
 -------------------------------------------------------------------------------
 
-### Name: v:setX() vs use math to set pitch:
+### Name: v:setX() vs use math to set vector's x:
     v:setX()(func1): 4.3080405023502e-06
     use math to set pitch(func2): 6.5721699985588e-06
     Faster: v:setX()
