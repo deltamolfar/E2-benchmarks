@@ -3,7 +3,7 @@ Benchmarks of E2 functions/logic
 
 Each test (except some), are run 2-3 times. Each print out is from one of 1.000.000 runs.
 
-## Name: Global vars vs Local vars:
+### Name: Global vars vs Local vars:
     Global (func1): 1.1187495012491e-06
     Local (func2): 3.5490606999374e-06
     Faster: Global
@@ -20,7 +20,7 @@ Func2 = function(){
 ```
 -------------------------------------------------------------------------------
 
-## Name: for(table) vs foreach(table):
+### Name: for(table) vs foreach(table):
     for(Table)(func1): 8.7233780999195e-06
     foreach(Table)(func2): 9.8770803049119e-06
     Faster: for(Table)
