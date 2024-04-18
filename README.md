@@ -326,7 +326,7 @@ GlobalVar = array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
 ```
 -------------------------------------------------------------------------------
 
-Name: elseif chain (worst case (5)) vs switch statement (worse case (5)):
+### Name: elseif chain (worst case (5)) vs switch statement (worse case (5)):
     elseif chain (worst case (5))(func1): 4.4832946988463e-06
     switch statement (worse case (5))(func2): 3.1121571030599e-06
     Faster: switch statement (worse case)
