@@ -1,5 +1,5 @@
 # E2-benchmarks
-Benchmarks of E2 functions/logic
+Benchmarks of performance of different E2's functions/logic/operators/methods/etc
 
 > [!IMPORTANT]
 > Tested on April 5, 2024 Workshop version
