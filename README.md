@@ -21,7 +21,7 @@ Benchmarks of performance of different E2's functions/logic/operators/methods/et
     Faster: Local
     Difference: 1.3029x faster
 
--- Keep in mind, that in the testbencher, the Funcs are actually 5-deep nested, so that's why it may cause such difference.
+-- Keep in mind that this is in the testbencher, the Funcs are actually 5-deep nested, so that's why it may cause such difference.
 ```
 Func1 = function(){
     G = 0
