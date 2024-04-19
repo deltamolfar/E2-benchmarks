@@ -2,9 +2,9 @@
 Benchmarks of performance of different E2's functions/logic/operators/methods/etc
 
 > [!IMPORTANT]
-> Tested on April 5, 2024 Workshop version
+> Tested on April 5, 2024 Workshop version (gmod x86-64 branch)
 > 
-> Each test (except very few), are run 2-3 times. Each print out is from one of 1.000.000 runs.
+> Each test (except some that needed more precision), are run 2.4m times. Each print out is an average of 800.000 code runs. (I've selected the most medium, no bias)
 > 
 > Obv the exact times of execution can differ VASTLY given different quota limits/hardware that it's run on/tick rate.
 > 
@@ -13,234 +13,228 @@ Benchmarks of performance of different E2's functions/logic/operators/methods/et
 > [!TIP]
 > To find/jump between different benchmarks, use navigation button at the top left/right of this window.
 ![image](https://github.com/deltamolfar/E2-benchmarks/assets/72973198/72b05da7-5c9e-4872-b6c3-252ba05c98fa)
+> If you want to run your benchmark (and potentially push them here), make sure to keep your tests to the tips that are on the top of E2 code.
 
-### Global vars vs Local vars:
-    Global (func1): 1.1187495012491e-06
-    Local (func2): 3.5490606999374e-06
-    Faster: Global
-    Difference: 3.1723x faster
+### Global vs Local:
+    Global(func1): 1.6932721248668e-06
+    Local(func2): 1.5644746249666e-06
+    Faster: Local
+    Difference: 1.3029x faster
 
--- From ton of tests, sometimes local is even faster, but most of the time global is ~3 times faster.
+-- Keep in mind, that in the testbencher, the Funcs are actually 5-deep nested, so that's why it may cause such difference.
 ```
 Func1 = function(){
-    A = 0
+    G = 0
 }
 Func2 = function(){
-    local A = 0
+    local L = 0
 }
 ```
 -------------------------------------------------------------------------------
 
-### for(table) vs foreach(table):
-    for(Table)(func1): 8.7233780999195e-06
-    foreach(Table)(func2): 9.8770803049119e-06
+### for(Table) vs foreach(Table):
+    for(Table)(func1): 8.325243750096e-06
+    foreach(Table)(func2): 8.9153580008929e-06
     Faster: for(Table)
-    Difference: 1.1322x faster
-
+    Difference: 1.0709x faster (To be considered equal, and difference is to be considered a fluctuation)
 ```
 Func1 = function(){
-    const Table = GlobalVar
-    
-    for(I=1, Table:count()){
-        A = Table[I, number]
+    for(I=1, GlobalVar:count()){
+        const A = GlobalVar[I, number]
     }
 }
 Func2 = function(){
-    const Table = GlobalVar
-    
-    foreach(I:number, V:number = Table){
-        A = V
+    foreach(I:number, V:number = GlobalVar){
+        const A = V
     }
 }
+GlobalVar = table(1=1, 2=2, 3=3, 4=4, 5=5, 6=6, 7=7, 8=8, 9=9, 10=10)
 ```
 -------------------------------------------------------------------------------
 
-### for(array) vs foreach(array):
-    for(Array)(func1): 9.4104822004447e-06
-    foreach(Array)(func2): 1.0234021101252e-05
+### for(Array) vs foreach(Array):
+    for(Array)(func1): 8.3095231255197e-06
+    foreach(Array)(func2): 8.5949169993387e-06
     Faster: for(Array)
-    Difference: 1.0875x faster
-
+    Difference: 1.03825x faster (To be considered equal, and difference is to be considered a fluctuation)
 ```
 Func1 = function(){
-    const Array = GlobalVar
-    
-    for(I=1, Array:count()){
-        A = Array[I, number]
+    for(I=1, GlobalVar:count()){
+        const A = GlobalVar[I, number]
     }
 }
 Func2 = function(){
-    const Array = GlobalVar
-    
-    foreach(I:number, V:number = Array){
-        A = V
+    foreach(I:number, V:number = GlobalVar){
+        const A = V
     }
 }
+GlobalVar = array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
 ```
 -------------------------------------------------------------------------------
 
-### Name: getting table value vs getting array value:
-    getting table value(func1): 3.7545093999245e-06
-    getting array value(func2): 1.0267367999393e-06
+### getting table value vs getting array value :
+    getting table value(func1): 7.0829811247791e-06
+    getting array value(func2): 7.0205573742464e-06
     Faster: getting array value
-    Difference: 3.6567x faster 
+    Difference: 1.0279x faster (To be considered equal, and difference is to be considered a fluctuation)
 ```
 Func1 = function(){
-    const A = GlobalVar[5, number]
+    for(_=1, 10){
+        GlobalVarTable[5, number]
+    }
 }
 Func2 = function(){
-    const A = GlobalVar2[5, number]
+    for(_=1, 10){
+        GlobalVarArray[5, number]
+    }
 }
+GlobalVarArray = array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+GlobalVarTable = table(1=1, 2=2, 3=3, 4=4, 5=5, 6=6, 7=7, 8=8, 9=9, 10=10)
 ```
 -------------------------------------------------------------------------------
 
-### Name: appending table value vs appending array value:
-    appending table value(func1): 3.9170015998573e-06
-    appending array value(func2): 1.5040937999868e-06
-    Faster: appending array value
-    Difference: 2.6042x faster 
+### appending table value vs appending array value :
+    appending table value(func1): 1.7944658625383e-05
+    appending array value(func2): 2.8403766375704e-05
+    Faster: appending table value
+    Difference: 1.58285x faster 
 ```
 Func1 = function(){
-    GlobalVar:pushNumber(0)
+    for(_=1, 10){
+        GlobalVarTable:pushNumber(1024)
+    }
 }
 Func2 = function(){
-    GlobalVar2:pushNumber(0)
+    for(_=1, 10){
+        GlobalVarArray:pushNumber(1024)
+    }
 }
-```
-
--------------------------------------------------------------------------------
-
-### Caching table value vs not caching table value (2 usages):
-    Caching(func1): 3.1641313986402e-06
-    Not caching(func2): 3.0177291972941e-06
-    Faster: Not caching
-    Difference: 1.0485x faster (To be considered equal, and difference is to be considered a fluctuation)
-
-```
-Func1 = function(){
-    const Table = GlobalVar
-    
-    const Num = Table[2, number]
-    const A = Num
-    const B = Num
-}
-Func2 = function(){
-    const Table = GlobalVar
-    
-    const A = Table[2, number]
-    const B = Table[2, number]
-}
+GlobalVarArray = array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+GlobalVarTable = table(1=1, 2=2, 3=3, 4=4, 5=5, 6=6, 7=7, 8=8, 9=9, 10=10)
 ```
 -------------------------------------------------------------------------------
 
-### Caching table value vs not caching table value (4 usages):
-    Caching(func1): 3.3019128994383e-06
-    Not caching(func2): 3.9023352007534e-06
-    Faster: Caching
-    Difference: 1.1818x faster
-
+### Table var caching(2 usages) vs No table var caching(2 usages):
+    Table var caching(2 usages)(func1): 2.9246951252776e-06
+    No table var caching(2 usages)(func2): 2.7979359994083e-06
+    Faster: No table var caching(2 usages)
+    Difference: 1.0452x faster (To be considered equal, and difference is to be considered a fluctuation)
 ```
 Func1 = function(){
-    const Table = GlobalVar
-    
-    const Num = Table[2, number]
-    const A = Num
-    const B = Num
-    const C = Num
-    const D = Num
+    const Num = GlobalVarTable[2, number]
+    Num
+    Num
 }
 Func2 = function(){
-    const Table = GlobalVar
-    
-    const A = Table[2, number]
-    const B = Table[2, number]
-    const C = Table[2, number]
-    const D = Table[2, number]
+    GlobalVarTable[2, number]
+    GlobalVarTable[2, number]
 }
+GlobalVarTable = table(1=1, 2=2, 3=3, 4=4, 5=5, 6=6, 7=7, 8=8, 9=9, 10=10)
+```
+-------------------------------------------------------------------------------
+
+### Table var caching(4 usages) vs No table var caching(4 usages):
+    Table var caching(4 usages)(func1): 2.3711792502468e-06
+    No table var caching(4 usages)(func2): 2.5267207489082e-06
+    Faster: Table var caching(4 usages)
+    Difference: 1.19365x faster 
+```
+Func1 = function(){
+    const Num = GlobalVarTable[2, number]
+    Num
+    Num
+    Num
+    Num
+}
+Func2 = function(){
+    GlobalVarTable[2, number]
+    GlobalVarTable[2, number]
+    GlobalVarTable[2, number]
+    GlobalVarTable[2, number]
+}
+GlobalVarTable = table(1=1, 2=2, 3=3, 4=4, 5=5, 6=6, 7=7, 8=8, 9=9, 10=10)
 ```
 -------------------------------------------------------------------------------
 
 ### Multiplication vs Division:
-    Multiplication(func1): 1.6986207035443e-06
-    Division(func2): 2.3158794003539e-06
+    Multiplication(func1): 2.1088746375203e-05
+    Division(func2): 2.1191265126743e-05
     Faster: Multiplication
-    Difference: 1.3633x faster
-
--- That's actually suprised me, as from benchmarks of GLua that I saw, it was discovered that Multiplication being faster then Division was a myth,
--- But I guess E2 likes keeping up to myths :)
+    Difference: 1.0195x faster (To be considered equal, and difference is to be considered a fluctuation)
+-- Heard a ton of arguments about that. I hope now that's settled :).
 ```
 Func1 = function(){
-    A = 8*0.5
+    for(_=1, 50){
+        3*0.5
+    }
 }
 Func2 = function(){
-    A = 8/2
+    for(_=1, 50){
+        3/0.5
+    }
 }
 ```
 -------------------------------------------------------------------------------
 
-### Logical AND vs Bitwise AND:
-    Logical AND(func1): 2.7615460006491e-06
-    Bitwise AND(func2): 1.4855218013945e-06
-    Faster: Bitwise AND
-    Difference: 1.8589x faster 
+### Logical AND vs Bitwise AND :
+    Logical AND(func1): 9.3450682506909e-06
+    Bitwise AND(func2): 1.2188277500979e-05
+    Faster: Logical AND
+    Difference: 1.3046x faster 
 
--- Ha-ha, I knew it :). (To those that always told me to use Logical AND - :P)
+-- And I've always used Bitwise ;c
+
 ```
 Func1 = function(){
-    A = 2
-    if( A & 1 ){
-        B = 0
+    for(_=1, 25){
+        5 & 5
     }
 }
 Func2 = function(){
-    A = 2
-    if( A && 1 ){
-        B = 0
+    for(_=1, 25){
+        5 && 5
     }
 }
 ```
 -------------------------------------------------------------------------------
 
 ### Logical OR vs Bitwise OR:
-    Logical OR(func1): 3.2567436998688e-06
-    Bitwise OR(func2): 2.3873028004273e-06
-    Faster: Bitwise OR
-    Difference: 1.3641x faster 
+    Logical OR(func1): 3.0377830009661e-06
+    Bitwise OR(func2): 5.0107538763245e-06
+    Faster: Logical OR
+    Difference: 1.36075x faster 
 
 ```
 Func1 = function(){
-    const A = 1
-    if( A | 1 ){
-        const B = 0
+    for(_=1, 25){
+        5 | 5
     }
 }
 Func2 = function(){
-    const A = 1
-    if( A || 1 ){
-        const B = 0
+    for(_=1, 25){
+        5 || 5
     }
 }
 ```
 -------------------------------------------------------------------------------
 
-### if(A) vs if(A==1):
-    if(A)(func1): 3.1880695985856e-06
-    if(A==1)(func2): 1.9789566011314e-06
+### if(A) vs if(A==1) :
+    if(A)(func1): 3.118137437486e-05
+    if(A==1)(func2): 3.0595491000365e-05
     Faster: if(A==1)
-    Difference: 1.6109x faster 
+    Difference: 1.0344x faster (To be considered equal, and difference is to be considered a fluctuation)
 
--- And that's a shame :)
 ```
 Func1 = function(){
-    A = 1
-    if(A){
-        B = 0
+    const A = 1
+    for(_=1, 25){
+        if( A ){  }
     }
 }
 Func2 = function(){
-    A = 1
-    if( A==1 ){
-        B = 0
+    const A = 1
+    for(_=1, 25){
+        if( A==1 ){  }
     }
 }
 ```
@@ -251,56 +245,56 @@ Func2 = function(){
     use math to set pitch(func2): 6.5721699985588e-06
     Faster: v:setX()
     Difference: 1.5255x faster 
+### v:setX() vs use math:
+    v:setX()(func1): 2.6215744249907e-05
+    use math(func2): 5.9519711250114e-05
+    Faster: v:setX()
+    Difference: 2.2704x faster 
 
 ```
 Func1 = function(){
-    local A = vec(50)
-    A:setX(100)
-}
-Func2 = function(){
-    local A = vec(50)
-    A = A*vec(0,1,1)+vec(100,0,0)
-}
-```
--------------------------------------------------------------------------------
-
-### for(I=1, 10) vs for(_=1, 10):
-    for(I=1, 10)(func1): 5.7966269985372e-06
-    for(_=1, 10)(func2): 4.1644744037403e-06
-    Faster: for(_=1, 10)
-    Difference: 1.3919x faster 
-
-```
-Func1 = function(){
-    for(I=1, 10){
-        const A = 0
+    for(_=1, 10){
+        vec(50):setX(100)
     }
 }
 Func2 = function(){
     for(_=1, 10){
-        const A = 0
+        vec(50)*vec(0,1,1)+vec(100,0,0)
     }
 }
 ```
 -------------------------------------------------------------------------------
 
-### foreach(I:number, V:number = Array) vs foreach(_:number, V:number = Array):
-    foreach(I:number, V:number = Array)(func1): 7.6134745981981e-06
-    foreach(_:number, V:number = Array)(func2): 7.3428557003244e-06
-    Faster: foreach(_:number, V:number = Array)
-    Difference: 1.0368x faster (To be considered equal, and difference is to be considered a fluctuation)
+### for(I=1, 50) vs for(_=1, 50) :
+    for(I=1, 50)(func1): 9.6537351255711e-06
+    for(_=1, 50)(func2): 9.1208142506343e-06
+    Faster: for(_=1, 10)
+    Difference: 1.05895x faster (To be considered equal, and difference is to be considered a fluctuation)
 
 ```
- Func1 = function(){
-    foreach(I:number, V:number = GlobalVar){
-        const A = 0
-    }
+Func1 = function(){
+    for(I=1, 50){ }
 }
 Func2 = function(){
-    foreach(_:number, V:number = GlobalVar){
-        const A = 0
-    }
+    for(_=1, 50){ }
 }
+```
+-------------------------------------------------------------------------------
+
+### foreach(I:number, V:number = Array) vs foreach(_:number, V:number = Array) :
+    foreach(I:number, V:number = Array)(func1): 6.2692422495638e-06
+    foreach(_:number, V:number = Array)(func2): 5.7181398756438e-06
+    Faster: foreach(_:number, V:number = Array)
+    Difference: 1.0987x faster (To be considered equal, and difference is to be considered a fluctuation)
+
+```
+Func1 = function(){
+    foreach(I:number, V:number = GlobalVarArray){ }
+}
+Func2 = function(){
+    foreach(_:number, V:number = GlobalVarArray){ }
+}
+GlobalVarArray = array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
 ```
 -------------------------------------------------------------------------------
 
@@ -326,180 +320,189 @@ Func2 = function(){
 ```
 -------------------------------------------------------------------------------
 
-### Checking for value with lookup table vs Checking for value with a:indexOf (best case):
-    Checking for value with lookup table(func1): 9.4220373995668e-06
-    Checking for value with a:indexOf (best case)(func2): 4.2026332019668e-06
-    Faster: Checking for value with a:indexOf (best case)
-    Difference: 2.2419x faster
+### Checking for variable using: lookup table vs a:indexOf - (best case):
+    lookup table(func1): 1.8567504999089e-05
+    a:indexOf(func2): 4.6639391243048e-06
+    Faster: a:indexOf
+    Difference: 3.988x faster 
 
 ```
 Func1 = function(){
-    if( invert(GlobalVar):exists(1)!=0 ){
-        const B = 0
+    for(_=1, 2){
+        invert(GlobalVarArray):exists(1)
     }
 }
 Func2 = function(){
-    if( GlobalVar:indexOf(1)!=0 ){
-        const B = 0
+    for(_=1, 2){
+        GlobalVarArray:indexOf(1)!=0
     }
 }
-GlobalVar = array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+GlobalVarArray = array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
 ```
 -------------------------------------------------------------------------------
 
-### Checking for value with lookup table vs Checking for value with a:indexOf (worst case):
-    Checking for value with lookup table(func1): 9.5196129990763e-06
-    Checking for value with a:indexOf (worst case)(func2): 4.0209813018155e-06
-    Faster: Checking for value with a:indexOf (worst case)
-    Difference: 2.3674x faster 
+### Checking for variable using: lookup table vs a:indexOf - (worst case):
+    lookup table(func1): 1.8696632376898e-05
+    a:indexOf(func2): 4.903197749818e-06
+    Faster: a:indexOf
+    Difference: 3.8201x faster 
 
 ```
 Func1 = function(){
-    if( invert(GlobalVar):exists(10)!=0 ){
-        const B = 0
+    for(_=1, 2){
+        invert(GlobalVarArray):exists(10)
     }
 }
 Func2 = function(){
-    if( GlobalVar:indexOf(10)!=0 ){
-        const B = 0
+    for(_=1, 2){
+        GlobalVarArray:indexOf(10)!=0
     }
 }
-GlobalVar = array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+GlobalVarArray = array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
 ```
--------------------------------------------------------------------------------
+### Checking for variable using: Table:exists(n) vs Array:indexOf(n)!=0 - :
+    Table:exists(n)(func1): 4.472356374481e-06
+    Array:indexOf(n)!=0(func2): 5.1354679974429e-06
+    Faster: Table:exists(n)
+    Difference: 1.1519x faster 
 
-### elseif chain (worst case (5)) vs switch statement (worse case (5)):
-    elseif chain (worst case (5))(func1): 4.4832946988463e-06
-    switch statement (worse case (5))(func2): 3.1121571030599e-06
-    Faster: switch statement (worse case)
-    Difference: 1.4405x faster 
-
+-- As expected, the larger the array and table, the better the table:exists() then :indexOf()!=0. With <25 entries, the difference is close to 0   
 ```
 Func1 = function(){
-    const A = 1
-    if( A==5 ){
-        const B = 1
-    } elseif( A==4 ){
-        const B = 1
-    } elseif( A==3 ){
-        const B = 1
-    } elseif( A==2 ){
-        const B = 1
-    } elseif( A==1 ){
-        const B = 1
+    for(_=1, 2){
+        GlobalVarTable:exists(25)
     }
 }
 Func2 = function(){
-    const A = 1
-    switch( A ){
-        case 5,
-            const B = 1
-        break
-        case 4,
-            const B = 1
-        break
-        case 3,
-            const B = 1
-        break
-        case 2,
-            const B = 1
-        break
-        case 1,
-            const B = 1
-        break
+    for(_=1, 2){
+        GlobalVarArray:indexOf(25)!=0
     }
 }
+GlobalVarArray = array(50 entries)
+GlobalVarTable = table(50 entries)
 ```
 -------------------------------------------------------------------------------
 
-### elseif chain (best case (5)) vs switch statement (best case (5)):
-    elseif chain (best case (5))(func1): 3.8640061986043e-06
-    switch statement (best case (5))(func2): 2.9425704010828e-06
-    Faster: switch statement (best case (5))
-    Difference: 1.0366x-1.3131x faster
+### elseif chain vs switch case - best case (first case is true):
+    elseif chain(func1): 9.2845717495857e-06
+    switch case(func2): 1.0719321622723e-05
+    Faster: elseif chain
+    Difference: 1.1658x faster 
 
--- Didn't expect that. Heard a lot from dev team that switch statement is slower under the hood. :/
+-- I love switchcases ;c
 ```
 Func1 = function(){
     const A = 5
-    if( A==5 ){
-        const B = 1
-    } elseif( A==4 ){
-        const B = 1
-    } elseif( A==3 ){
-        const B = 1
-    } elseif( A==2 ){
-        const B = 1
-    } elseif( A==1 ){
-        const B = 1
+    
+    for(_=1, 5){
+        if( A==5 ){
+        } elseif( A==4 ){
+        } elseif( A==3 ){
+        } elseif( A==2 ){
+        } elseif( A==1 ){
+        }
     }
 }
 Func2 = function(){
     const A = 5
-    switch( A ){
-        case 5,
-            const B = 1
-        break
-        case 4,
-            const B = 1
-        break
-        case 3,
-            const B = 1
-        break
-        case 2,
-            const B = 1
-        break
-        case 1,
-            const B = 1
-        break
+    
+    for(_=1, 5){
+        switch( A ){
+            case 5,
+            break
+            case 4,
+            break
+            case 3,
+            break
+            case 2,
+            break
+            case 1,
+            break
+        }
+    }
+}
+```
+-------------------------------------------------------------------------------
+
+### elseif chain vs switch case - worst case (last case is true):
+    elseif chain(func1): 1.0976936749835e-05
+    switch case(func2): 1.007760012571e-05
+    Faster: switch case
+    Difference: 1.119x faster 
+
+-- I love switchcases ;c
+```
+Func1 = function(){
+    const A = 1
+    
+    for(_=1, 5){
+        if( A==5 ){
+        } elseif( A==4 ){
+        } elseif( A==3 ){
+        } elseif( A==2 ){
+        } elseif( A==1 ){
+        }
+    }
+}
+Func2 = function(){
+    const A = 1
+    
+    for(_=1, 5){
+        switch( A ){
+            case 5,
+            break
+            case 4,
+            break
+            case 3,
+            break
+            case 2,
+            break
+            case 1,
+            break
+        }
     }
 }
 ```
 -------------------------------------------------------------------------------
 
 ### x^(1/2) vs sqrt(x):
-    x^(1/2)(func1): 4.3928160997602e-06
-    sqrt(x)(func2): 1.8497758958256e-06
-    Faster: sqrt(x)
-    Difference: 2.3747x faster 
+    x^(1/2)(func1): 1.6167051252592e-05
+    sqrt(x)(func2): 1.9966790247245e-05
+    Faster: x^(1/2)
+    Difference: 1.2353x faster 
 
 ```
 Func1 = function(){
-    const A = 128^(1/2)
+    for(_=1, 25){
+        128^(1/2)
+    }
 }
 Func2 = function(){
-    const A = sqrt(128)
+    for(_=1, 25){
+        sqrt(128)
+    }
 }
 ```
 -------------------------------------------------------------------------------
 
 ### v:distance2(v) vs v:distance(v):
-    v:distance2(v)(func1): 2.4197570947144e-06
-    v:distance(v)(func2): 3.2264778981189e-06
+    v:distance2(v)(func1): 2.6137698248644e-05
+    v:distance(v)(func2): 2.6477860375626e-05
     Faster: v:distance2(v)
-    Difference: 1.3333x faster 
+    Difference: 1.013x faster (To be considered equal, and difference is to be considered a fluctuation)
+
 ```
 Func1 = function(){
-    const A = GlobalVar:distance2(GlobalVar2)
+    for(_=1, 25){
+       Vector1:distance2(Vector2)
+    }
 }
 Func2 = function(){
-    const A = GlobalVar:distance(GlobalVar2)
+    for(_=1, 25){
+       Vector1:distance(Vector2)
+    }
 }
 ```
 -------------------------------------------------------------------------------
-
-### Name: sqrt(v:distance2(v)) vs v:distance(v):
-    sqrt(v:distance2(v))(func1): 2.2255907999863e-06
-    v:distance(v)(func2): 1.1878733000705e-06
-    Faster: v:distance(v)
-    Difference: 1.8735x faster 
-```
-Func1 = function(){
-    const A = sqrt(GlobalVar:distance2(GlobalVar2))
-}
-Func2 = function(){
-    const A = GlobalVar:distance(GlobalVar2)
-}
-```
 
 
