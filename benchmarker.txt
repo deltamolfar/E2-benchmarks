@@ -31,45 +31,28 @@
 # (Math operators/Comparison operators are very light, thus you need at least 50 iterations in one function, to minimize random interferances impact)
 
 if( first() || duped() ){
-Func1 = function(){
-    for(_=1, 10){
-        const T = table(
-            "VAR_1" = "HELLO",
-            "VAR_2" = "WORLD",
-            "VAR_3" = ":D",
-            4 = 1,
-            5 = 2,
-            6 = 3
-        )
+    Func1 = function(){
+        
     }
-}
-Func2 = function(){
-    for(_=1, 10){
-        const T = table()
-            T["VAR_1", string] = "HELLO"
-            T["VAR_2", string] = "WORLD"
-            T["VAR_3", string] = ":D"
-            T[4, number]= 1
-            T[5, number] = 2
-            T[6, number] = 3
+    Func2 = function(){
+        
     }
-}
 
 #Sometimes useful to have common global variable for functions, to remove initializing it (which can reduce the difference radio)
-GlobalVarArray = array()
-GlobalVarTable = table()
-
-for(I=1, 2000){
-    #GlobalVarArray:pushNumber(I)
-    GlobalVarTable:pushNumber(I)
-}
+    GlobalVarArray = array()
+    GlobalVarTable = table()
+    
+    for(I=1, 50){
+        #GlobalVarArray:pushNumber(I)
+        GlobalVarTable:pushNumber(I)
+    }
     GlobalVarTable2 = GlobalVarTable:clone()
 
     ResultSave = table(
-        "FUNC_1_NAME" = "Directly", #Func 1 description
-        "FUNC_2_NAME" = "At Index",  #Func 2 description
-        "PREFIX" = "Assigning table variables:",
-        "SUFFIX" = "big amount"
+        "FUNC_1_NAME" = "func1_desc", #Func 1 description
+        "FUNC_2_NAME" = "func2_desc",  #Func 2 description
+        "PREFIX" = "",
+        "SUFFIX" = ""
     )
     
     Amount = 400000
