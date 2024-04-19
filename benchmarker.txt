@@ -1,33 +1,104 @@
-@name benchmarker
-@persist [Func1Delays Func2Delays]:array Amount ResultSave:table [Func1 Func2]:function Epsilon
-@persist GlobalVar:array
+@name benchmarker v3
+@persist [Func1Delays Func2Delays]:array Amount ResultSave:table [Func1 Func2]:function Epsilon Version:string
+@persist GlobalVarArray:array [GlobalVarTable GlobalVarTable2]:table [Vector1 Vector2]:vector [OwnerEnt E2Ent]:entity IsMyFirstLife
+@model models/props_lab/servers.mdl
 @strict
 
-if( first() ){
-    Func1 = function(){
-        #Your function
+#Recomendations:
+# Run this script only on singleplayer SERVER, to remove any real singleplayer shenanigans, as well as to remove any performance peaks from real servers
+# Disable every addon possible
+# Have the lowest graphics settings, so u lag bit less when this E2 working on increased quota limits.
+#
+# Use this concmds before running it: (x20 limits)
+# wire_expression2_quotahard 2000000
+# wire_expression2_quotasoft 200000
+# wire_expression2_quotatick 500000
+#
+# Default quota settings:
+# wire_expression2_quotahard 100000
+# wire_expression2_quotasoft 10000
+# wire_expression2_quotatick 25000
+#
+# The 400.000 runs seems to be max. Otherwise, for some reason printout if( IsMyFirstLife ) causes player quota limit crash. Feel welcome to commit fix, if u know how to fix it
+#
+# With suggested (x20) limits, when script is running, I get ~5 fps, so don't be scared if it lags you
+# My specs:
+# AMD Phenom(tm) II X6 1090T. 3.2MHz, 6 cores
+# GTX 1060 Ti
+# 16 GB RAM
+#
+# Make sure to compensate for random performance spikes that comes from other sources then E2. To achieve that - make sure to run same logic more in a single function, the more lighter the logic is
+# (Math operators/Comparison operators are very light, thus you need at least 50 iterations in one function, to minimize random interferances impact)
+
+if( first() || duped() ){
+Func1 = function(){
+    for(_=1, 10){
+        const T = table(
+            "VAR_1" = "HELLO",
+            "VAR_2" = "WORLD",
+            "VAR_3" = ":D",
+            4 = 1,
+            5 = 2,
+            6 = 3
+        )
     }
-    
-    Func2 = function(){
-        #Your alternative function
+}
+Func2 = function(){
+    for(_=1, 10){
+        const T = table()
+            T["VAR_1", string] = "HELLO"
+            T["VAR_2", string] = "WORLD"
+            T["VAR_3", string] = ":D"
+            T[4, number]= 1
+            T[5, number] = 2
+            T[6, number] = 3
     }
-    
+}
+
+#Sometimes useful to have common global variable for functions, to remove initializing it (which can reduce the difference radio)
+GlobalVarArray = array()
+GlobalVarTable = table()
+
+for(I=1, 2000){
+    #GlobalVarArray:pushNumber(I)
+    GlobalVarTable:pushNumber(I)
+}
+    GlobalVarTable2 = GlobalVarTable:clone()
+
     ResultSave = table(
-        "FUNC_1_NAME" = "A", #Func 1 description
-        "FUNC_2_NAME" = "B"  #Func 2 description
+        "FUNC_1_NAME" = "Directly", #Func 1 description
+        "FUNC_2_NAME" = "At Index",  #Func 2 description
+        "PREFIX" = "Assigning table variables:",
+        "SUFFIX" = "big amount"
     )
     
-    ResultSave["NAME", string] = ResultSave["FUNC_1_NAME", string]+" vs "+ResultSave["FUNC_2_NAME", string]
+    Amount = 400000
+    # From tests, same functions can have up to 1.1 difference in times. I don't think this E2 can be optimized any further in terms of giving functions same enviroment.
+    # Obv I've tried to run first and second function directly one after another, but it caused VERY big advantage to the second function (no idea why). (Up to x3 times)
+    # Current configuration seems to be the most stable one.
+    Epsilon = 1.1 # Epsilon in here means accepted margin error.
     
-    GlobalVar = array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10) #Sometimes useful to have common global variable for functions, to remove initializing it (which can reduce the difference radio)
+    
+    ResultSave["NAME", string] = (ResultSave["PREFIX", string]:length()>0 ? ResultSave["PREFIX", string]+" " : "")+ResultSave["FUNC_1_NAME", string]+" vs "+ResultSave["FUNC_2_NAME", string]+(ResultSave["SUFFIX", string]:length()>0 ? " - "+ResultSave["SUFFIX", string] : "")
+
+    OwnerEnt = owner()
+    E2Ent = entity()
+    Vector1 = OwnerEnt:pos()
+    Vector2 = E2Ent:pos()
     
     Func1Delays = array()
     Func2Delays = array()
-    Amount = 1000000
-    Epsilon = 1.05
+    const Hash = hash():toString()
+    IsMyFirstLife = OwnerEnt[Hash, table]:count()==0
     
-    interval(1)
-    timer("print", 1000)
+    if( IsMyFirstLife ){
+        interval(500)
+    } else{
+        interval(2000)
+    }
+    
+    Version = "3.1.0s"
+    timer("print", 1)
 }
 
 function number func1(){
@@ -47,40 +118,88 @@ function number func2(){
 }
 
 function printout(){
-    hint("Benchmarking finished.", 7)
-
     const Func1Avg = Func1Delays:average()
     const Func2Avg = Func2Delays:average()
     const Difference = Func1Avg>Func2Avg ? floor(Func1Avg/Func2Avg, 4) : floor(Func2Avg/Func1Avg, 4)
+    const Hash = hash():toString()
+
+    if( IsMyFirstLife ){
+        OwnerEnt[Hash, table] = table(
+            "Func1Avg" = Func1Avg,
+            "Func2Avg" = Func2Avg,
+            "Difference" = Difference
+        )
+        hint("50% done. Rerunning...", 5)
+        reset()
+    }
     
-    print("Name: "+ResultSave["NAME", string]+":
-    "+ResultSave["FUNC_1_NAME", string]+"(func1): "+Func1Avg+"
-    "+ResultSave["FUNC_2_NAME", string]+"(func2): "+Func2Avg+"
-    Faster: "+(Func1Avg<Func2Avg ? ResultSave["FUNC_1_NAME", string] : ResultSave["FUNC_2_NAME", string])+"
-    Difference: "+Difference+"x faster "+(Difference<=Epsilon ? "(To be considered equal, and difference is to be considered a fluctuation)" : "")
+    hint("Benchmarking finished.", 7)
+
+    const RealFunc1Avg = (Func1Avg + OwnerEnt[Hash, table]["Func1Avg", number])/2
+    const RealFunc2Avg = (Func2Avg + OwnerEnt[Hash, table]["Func2Avg", number])/2
+    const RealDifference = (Difference + OwnerEnt[Hash, table]["Difference", number])/2
+    
+    printColor(vec(240), "-------------------------------------------------------------------------------\n\n### "+ResultSave["NAME", string]+":
+    "+ResultSave["FUNC_1_NAME", string]+"(func1): ", RealFunc1Avg<RealFunc2Avg ? vec(150,255,150) : vec(255,150,150), RealFunc1Avg, vec(240), "
+    "+ResultSave["FUNC_2_NAME", string]+"(func2): ", RealFunc1Avg<RealFunc2Avg ? vec(255,150,150) : vec(150,255,150), RealFunc2Avg, vec(240,240,150), "
+    Faster: "+(RealFunc1Avg<RealFunc2Avg ? ResultSave["FUNC_1_NAME", string] : ResultSave["FUNC_2_NAME", string]),vec(240),"
+    Difference: ", lerp(vec(240), vec(255,0,0), RealDifference/10) ,RealDifference+"x", vec(240), " faster ", vec(255,50,50), (RealDifference<=Epsilon ? "(To be considered equal, and difference is to be considered a fluctuation)" : "")+"
+```
+
+```"
     )
     
     selfDestruct()
 }
 
 if( clk() ){
-    while( perf(99) ){
-        Func1Delays:pushNumber(func1())
-        Func2Delays:pushNumber(func2())
-        
-        if( Func1Delays:count()>=Amount ){
-            stoptimer("print")
-            timer("printout", 1005)
-            exit()
+    if( IsMyFirstLife ){ #This implemented to remove compiler bias (as far, as I understand - it causes second function to have a little headstart compared to first function when :count() is finally greater then Amount var.)
+        while( perf(95) ){
+            if( Func1Delays:count()<Amount ){
+                Func1Delays:pushNumber(func1())
+            } elseif( Func2Delays:count()<Amount ){
+                Func2Delays:pushNumber(func2())
+            } else{
+                stoptimer("print")
+                timer("printout", 500)
+                exit()
+            }
+        }
+    } else{
+        while( perf(95) ){
+            if( Func2Delays:count()<Amount ){
+                Func2Delays:pushNumber( func2() )
+            } elseif( Func1Delays:count()<Amount ){
+                Func1Delays:pushNumber( func1() )
+            } else{
+                stoptimer("print")
+                timer("printout", 500)
+                exit()
+            }
         }
     }
     
-    interval(10)
+    interval(tickInterval()*1000)
 }
 elseif( clk("print") ){
     timer("print", 1000)
-    print(_HUD_PRINTCONSOLE, "\nBenchmarking: "+floor((Func1Delays:count()/Amount)*100,2)+"%...")
+    
+    const Progress = floor(((Func1Delays:count()+Func2Delays:count())/(Amount*2))*100,2)
+    
+    if( canSetName() ){
+        setName("benchmarker "+Version+"\nProgress: "+Progress+"%\nRun: "+(IsMyFirstLife ? "1" : "2")+"/2")
+    }
+    
+    #print(_HUD_PRINTCONSOLE, "\nBenchmarking: "+Progress+"%...")
 }
 elseif( clk("printout") ){
     printout()
 }
+
+event removed(Resetting:number) {
+    if( Resetting ){ exit() }
+    const Hash = hash():toString()
+    OwnerEnt[Hash, table] = table()
+}
+
+# made by deltamolfar
