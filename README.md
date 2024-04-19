@@ -501,8 +501,145 @@ Func2 = function(){
     for(_=1, 25){
        Vector1:distance(Vector2)
     }
+
+
 }
 ```
 -------------------------------------------------------------------------------
 
+### Ternary vs if else:
+    Ternary operator(func1): 1.1917865250975e-05
+    if else(func2): 3.2560750373318e-05
+    Faster: Ternary operator
+    Difference: 2.7318x faster 
+
+-- It's even a bit faster (~3x) if the first condition is true (replace '0' with '1')
+```
+Func1 = function(){
+    for(_=1, 25){
+       0 ? "true" : "false"
+    }
+}
+Func2 = function(){
+    for(_=1, 25){
+        if( 0 ){
+            "true"
+        } else{
+            "false"
+        }
+    }
+}
+```
+-------------------------------------------------------------------------------
+
+### t:pushNumber(n) vs t[t:count()+1, number]=n:
+    t:pushNumber(n)(func1): 8.371339249743e-06
+    t[t:count()+1, number]=n(func2): 1.2604062499104e-05
+    Faster: t:pushNumber(n)
+    Difference: 1.5058x faster 
+
+```
+Func1 = function(){
+    for(_=1, 10){
+       GlobalVarTable:pushNumber(0)
+    }
+}
+Func2 = function(){
+    for(_=1, 10){
+        GlobalVarTable2[GlobalVarTable2:count()+1, number] = 0
+    }
+}
+```
+-------------------------------------------------------------------------------
+
+### t:exists(n) vs t[n, number]!=0:
+    t:exists(n)(func1): 1.0172602498865e-05
+    t[n, number]!=0(func2): 8.8596381252137e-06
+    Faster: t[n, number]!=0
+    Difference: 1.148x faster 
+```
+Func1 = function(){
+    for(_=1, 10){
+       GlobalVarTable:exists(5)
+    }
+}
+Func2 = function(){
+    for(_=1, 10){
+        GlobalVarTable[5, number]!=0
+    }
+}
+```
+-------------------------------------------------------------------------------
+
+### t:clear() vs t = table() - small amount (1):
+    t:clear()(func1): 1.6646853251696e-05
+    t = table()(func2): 2.2625943747707e-05
+    Faster: t:clear()
+    Difference: 1.35935x faster 
+```
+Func1 = function(){
+    local T = table("hi" = ":)")
+    for(_=1, 10){
+        T:clear()# You CAN use that on const
+    }
+}
+Func2 = function(){
+    local T = table("hi" = ":)")
+    for(_=1, 10){
+        T = table()# You CAN'T use that on const
+    }
+}
+```
+-------------------------------------------------------------------------------
+
+### t:clear() vs t = table() - big amount (10000):
+    t:clear()(func1): 0.00030535707874442
+    t = table()(func2): 0.00027059088250885
+    Faster: t = table()
+    Difference: 1.12845x faster 
+```
+Func1 = function(){
+    local T = GlobalVarTable:clone()
+
+    T:clear()# You CAN use that on const
+}
+Func2 = function(){
+    local T = GlobalVarTable:clone()
+
+    T = table()# You CAN'T use that on const
+}
+GlobalVarTable:count==10000
+```
+-------------------------------------------------------------------------------
+
+### Assigning table variables: Directly vs At Index - big amount:
+    Directly(func1): 3.6574496998078e-05
+    At Index(func2): 6.338529037329e-05
+    Faster: Directly
+    Difference: 1.73305x faster 
+```
+Func1 = function(){
+    for(_=1, 10){
+        const T = table(
+            "VAR_1" = "HELLO",
+            "VAR_2" = "WORLD",
+            "VAR_3" = ":D",
+            4 = 1,
+            5 = 2,
+            6 = 3
+        )
+    }
+}
+Func2 = function(){
+    for(_=1, 10){
+        const T = table()
+            T["VAR_1", string] = "HELLO"
+            T["VAR_2", string] = "WORLD"
+            T["VAR_3", string] = ":D"
+            T[4, number]= 1
+            T[5, number] = 2
+            T[6, number] = 3
+    }
+}
+```
 
