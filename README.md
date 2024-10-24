@@ -636,7 +636,7 @@ Func2 = function(){
             T["VAR_1", string] = "HELLO"
             T["VAR_2", string] = "WORLD"
             T["VAR_3", string] = ":D"
-            T[4, number]= 1
+            T[4, number] = 1
             T[5, number] = 2
             T[6, number] = 3
     }
