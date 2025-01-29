@@ -38,7 +38,7 @@ if( first() || duped() ){
         
     }
 
-#Sometimes useful to have common global variable for functions, to remove initializing it (which can reduce the difference radio)
+#Sometimes useful to have common global variable for functions, to remove initializing it (which can reduce the difference ratio)
     GlobalVarArray = array()
     GlobalVarTable = table()
     
